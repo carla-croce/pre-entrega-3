@@ -1,47 +1,60 @@
 // console.log(localStorage);
 
-// const planes = [
-//     {duracion: "2 semanas", precio: 2000},
-//     {duracion: "1 mes", precio: 3500},
-//     {duracion: "2 meses", precio: 5500},
-// ];
+const agregarPlan = (plan) =>{
+    alert(plan);
+};
+let contenedor = document.getElementById("contenedor");
 
-// localStorage.setItem("planes", JSON.stringify(planes));
+const planes = [
+    {plan: 1, duracion: "2 semanas", precio: 2000},
+    {plan: 2, duracion: "1 mes", precio: 3500},
+    {plan: 3, duracion: "2 meses", precio: 5500},
+];
 
-let boton = document.getElementById("boton");
-let btn = document.getElementById("btn");
-let planes = [];
-let planesStorage = localStorage.getItem("planes");
+localStorage.setItem("planes", JSON.stringify(planes));
 
-if(planes){
-    planes = JSON.parse(planesStorage);
-}else{
-    let div = document.createElement("div");
-    div.innerHTML = "No ha seleccionado ninguna de nuestras opciones.";
-    document.body.append(div);
-}
-
-planes.forEach(item =>{
+planes.forEach((plan) => {
     let div = document.createElement("div");
     div.innerHTML = `
-    <p>Duración: ${item.duracion}</p>
-    <b>Precio: $${item.precio}</b>    
-    `
-    
+    <p>Duración: ${plan.duracion}</p>
+    <b>Precio: $${plan.precio}</b> 
+    <button id="boton${plan.plan}">Agregar</button>
+    <button id="btn${plan.plan}">Quitar</button>   
+    `;
     document.body.append(div);
-    
+
+    let boton = document.getElementById(`boton ${plan.plan}`);
+    boton.addEventListener("click", () => agregarPlan(plan.plan));
+
+    let btn = document.getElementById(`btn ${plan.plan}`);
+    btn.addEventListener("click", () =>{
+        localStorage.clear()
+        alert("Ha seleccionado el botón 'Quitar'");
+    });  
 });
 
 
-boton();
-btn();
 
-btn.addEventListener("click", () =>{
-    localStorage.clear()
-    alert("Ha seleccionado el botón 'Quitar'");
-})
 
-boton.addEventListener("click", () => {
-    localStorage.setItem("planes", JSON.stringify(planes));
-    agregar.className = "violeta";
-});
+
+
+
+
+// btn.addEventListener("click", () =>{
+//     localStorage.clear()
+//     alert("Ha seleccionado el botón 'Quitar'");
+// })
+
+// boton.addEventListener("click", () => {
+//     localStorage.setItem("planes", JSON.stringify(planes));
+//     agregar.className = "violeta";
+// });
+// let planes = [];
+// if(planes){
+//     planes = JSON.parse(planesStorage);
+// }else{
+//     let div = document.createElement("div");
+//     div.innerHTML = "No ha seleccionado ninguna de nuestras opciones.";
+//     document.body.append(div);
+// }
+// let planesStorage = localStorage.getItem("planes");
